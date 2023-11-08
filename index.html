@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Bootstrap demo</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <form class="card" id="formulario">
+                    <div class="card-header p-3">
+                        <h1>Primer paso: Empresa</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mt-3">
+                            <label for="nombreEmpresa">Nombre de la empresa</label>
+                            <input type="text" class="form-control" name="nombreEmpresa" id="nombreEmpresa" placeholder="Razon social de la empresa, el mismo es el que se va a tomar para el nombre de su DB">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="cuit">CUIT</label>
+                            <input type="number" class="form-control" name="cuit" id="cuit" placeholder="CUIT de la empresa, sin guiones, solo números">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="telefono">Teléfono</label>
+                            <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Telefono de contacto en caso de necesitar acceso">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección física de la empresa">
+                        </div>
+                    </div>
+
+
+                    <div class="card-header p-3 mt-4" style="border-top: 1px solid #D2D2D2;">
+                        <h1>Segundo paso: Origen de datos</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mt-3">
+                            <label for="OriginPlatform">Plataforma de origen</label>
+                            <select name="OriginPlatform" id="OriginPlatform" onclick="mostrarPlataforma()">
+                                <option value="flexxus">FLEXXUS</option>
+                                <option value="tiendanube">TIENDA NUBE</option>
+                            </select>
+                        </div>
+                        <div class="origen flexxus">
+                            <div class="form-group mt-3">
+                                <label for="protocol">Protocolo</label><span class="aclaracion"> (HTTP si no es server procom o HTTPS si es Procom)</span>
+                                <select name="protocol" id="protocol">
+                                    <option value="http">HTTP</option>
+                                    <option value="https">HTTPS</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="dns">DNS</label>
+                                <input type="text" class="form-control" name="dns" id="dns" placeholder="ip del servidor del cliente, en caso de ser procom, poner la dns xxx.procomisp.com.ar">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="port">Puerto</label>
+                                <input type="number" class="form-control" name="port" id="port" placeholder="Puerto de la api flx, en caso de ser procom, va vacio">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="usuarioflx">Usuario FLEXXUS</label>
+                                <input type="text" class="form-control" name="usuarioflx" id="usuarioflx" placeholder="Un usuario del ERP de Flexxus">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="contraseñaflx">Contraseña FLEXXUS</label>
+                                <input type="text" class="form-control" name="contraseñaflx" id="contraseñaflx" placeholder="Puerto de la api flx, en caso de ser procom, va vacio">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="versionAPI">Versión API</label>
+                                <select name="versionAPI" id="versionAPI">
+                                    <option value="V2">V2</option>
+                                    <option value="V5">V5</option>
+                                </select>
+                            </div>                            
+                        </div>
+                        <div class="origen tiendanube mt-4 d-none">
+                            <h3>QUEDA PENDIENTE</h3>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-header p-3 mt-4" style="border-top: 1px solid #D2D2D2;">
+                        <h1>Tercer paso: Destino de datos</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mt-3">
+                            <label for="plataformaDestino">Plataforma de destino</label>
+                            <select name="plataformaDestino" id="plataformaDestino" onclick="mostrarPlataformaDestino()">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="MercadoLibre">MercadoLibre</option>
+                                <option value="TiendaNube">TiendaNube</option>
+                                <option value="Woocommerce">Woocommerce</option>
+                                <option value="Billowshop">Billowshop</option>
+                                <option value="AmazonES">AmazonES</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="sellerPerfil">Codigo Perfil del vendedor</label>
+                            <input type="text" class="form-control" name="sellerPerfil" id="sellerPerfil" placeholder="Lo que se conoce como seller_username">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="sellerUsuario">Codigo Usuario del vendedor</label>
+                            <input type="text" class="form-control" name="sellerUsuario" id="sellerUsuario" placeholder="Lo que se conoce como seller_id">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="price_list">Lista de precio</label>
+                            <input type="text" class="form-control" name="price_list" id="price_list" placeholder="Lista de precio a utilizar">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="type_stock">Tipo de stock</label>
+                            <select name="type_stock" id="type_stock">
+                                <option value="1">Remanente (disponible)</option>
+                                <option value="0">Real</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="warehouse_list">Listado de depositos</label>
+                            <input type="text" class="form-control" name="warehouse_list" id="warehouse_list" placeholder="listado de depositos a tomar (ejemplo: 001,002,003)" onchange="agregarDepositoCentral()">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="order_warehouse">Deposito central del cual se toman los pedidos</label>
+                            <select name="order_warehouse" id="order_warehouse">
+                                <option value="" selected disabled>Seleccionar...</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="operation_type">Tipo de operacion</label>
+                            <input type="text" class="form-control" name="operation_type" id="operation_type" placeholder="Tipo de operacion que utiliza la nota de pedido en Flexxus">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="multiplazo">Mulitplazo</label>
+                            <input type="text" class="form-control" name="multiplazo" id="multiplazo" placeholder="Mulitplazo a utilizar para los clientes cargados (IMPORTANTE: en caso de querer factuarcion masiva, debe permitir anticipo)">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="activity_type">Tipo actividad</label>
+                            <input type="text" class="form-control" name="activity_type" id="activity_type" placeholder="Tipo de actividad con la que se crean los clientes, valor por defecto 000">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="use_variants_and_attributes">Usa variantes y atributos?</label>
+                            <select name="use_variants_and_attributes" id="use_variants_and_attributes" disabled>
+                                <option value="1" selected>SI</option>
+                                <option value="0">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="update_from">Fecha de hoy</label>
+                            <input type="text" class="form-control" name="update_from" id="update_from" value="" disabled>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="publicaWeb">Publica en WEB?</label>
+                            <select name="publicaWeb" id="publicaWeb" disabled>
+                                <option value="1" selected>SI</option>
+                                <option value="0">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="talle">Usa talle?</label>
+                            <select name="talle" id="talle" onclick="habilitarEquivalencia()">
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="equivalencia">Usa equivalencias?</label>
+                            <select name="equivalencia" id="equivalencia" disabled>
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
+                        </div>
+
+                        <div class="plataforma mercadolibre d-none">
+                            <span class="divisor-seccion">Seleccionó MERCADOLIBRE</span>
+    
+                            <div class="form-group mt-3">
+                                <label for="meli_user_orders">Usuario MELI orders</label>
+                                <input type="text" class="form-control" name="meli_user_orders" id="meli_user_orders" placeholder="vacio" disabled>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="warehouse_full">Deposito FULL</label>
+                                <input type="text" class="form-control" name="warehouse_full" id="warehouse_full" placeholder="Importante, no debe ser un deposito que exista en 'Listado de depositos'">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="itemFleteML">ID producto a utilizar como Flete</label>
+                                <input type="text" class="form-control" name="itemFleteML" id="itemFleteML" placeholder="Se completa en caso de querer facturar el envio de mercadoLibre, sino, dejar vacio.">
+                            </div>
+                        </div>
+
+                        <div class="plataforma tiendanube d-none">
+                            <span class="divisor-seccion">Seleccionó TIENDANUBE</span>
+    
+                            <div class="form-group mt-3">
+                                <label for="tienda_nube_actualiza_nombres">Actualiza nombres?</label>
+                                <select name="tienda_nube_actualiza_nombres" id="tienda_nube_actualiza_nombres" disabled>
+                                    <option value="1">SI</option>
+                                    <option value="0" selected>NO</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="use_variant_TN">Usa variantes?</label>
+                                <select name="use_variant_TN" id="use_variant_TN" disabled>
+                                    <option value="1" selected>SI</option>
+                                    <option value="0">NO</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="status_order_syncTN">Estados de ordenes a sincronizar</label>
+                                <input type="text" class="form-control" name="status_order_syncTN" id="status_order_syncTN" placeholder="Ingresar valores separados por coma. EJ: completed, pending">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="itemFleteTN">ID producto a utilizar como Flete</label>
+                                <input type="text" class="form-control" name="itemFleteTN" id="itemFleteTN" placeholder="Se completa en caso de querer facturar el envio de mercadoLibre, sino, dejar vacio.">
+                            </div>
+                        </div>
+
+                        <div class="plataforma woocommerce d-none">
+                            <span class="divisor-seccion">Seleccionó WOOCOMMERCE</span>
+    
+                            <div class="form-group mt-3">
+                                <label for="use_variant_Woo">Usa variantes?</label>
+                                <select name="use_variant_Woo" id="use_variant_Woo" disabled>
+                                    <option value="1" selected>SI</option>
+                                    <option value="0">NO</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="status_order_syncWC">Estados de ordenes a sincronizar</label>
+                                <input type="text" class="form-control" name="status_order_syncWC" id="status_order_syncWC" placeholder="Ingresar valores separados por coma. EJ: completed, pending">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="itemFleteWC">ID producto a utilizar como Flete</label>
+                                <input type="text" class="form-control" name="itemFleteWC" id="itemFleteWC" placeholder="Se completa en caso de querer facturar el envio de mercadoLibre, sino, dejar vacio.">
+                            </div>
+                        </div>
+
+                        <div class="card-header p-3 mt-4" style="border-top: 1px solid #D2D2D2;">
+                            <h1>Ultimo paso: Accesos al cliente</h1>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="nombreUsuario">Nombre de usuario</label>
+                            <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="apellidoUsuario">Apellido del usuario</label>
+                            <input type="text" class="form-control" name="apellidoUsuario" id="apellidoUsuario">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="emailUsuario">Email del usuario</label>
+                            <input type="text" class="form-control" name="emailUsuario" id="emailUsuario" onchange="quitarPunto()">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="passUsuario">Contraseña del usuario</label>
+                            <input type="text" class="form-control" name="passUsuario" id="passUsuario">
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn mt-5 m-3 py-2 text-white">ENVIAR</button>
+                </form>
+
+                <hr>
+
+                <span class="divisor-seccion">RESULTADOS</span>
+                <div id="resultados">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

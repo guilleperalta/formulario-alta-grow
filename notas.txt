@@ -1,0 +1,77 @@
+--- Formulario de carga ---
+
+-- Primer paso empresa:
+NOMBRE EMPRESA || Razon social de la empresa, el mismo es el que se va a tomar para el nombre de su DB
+CUIT
+TELEFONO || Telefono de contacto en caso de necesitar acceso
+DIRECCION || direccion fisica de la empresa
+
+
+-- Segundo paso origen:
+CHOICE de plataforma: Flexxus - TiendaNube Origen
+
+FLEXXUS{
+OriginPlatform='ACA VA LA PLATAFORMA ELEGIDA'
+protocol='' || HTTP si no es server procom o HTTPS si es Procom
+dns='' || ip del servidor del cliente, en caso de ser procom, poner la dns xxx.procomisp.com.ar
+port='' || puerto de la api flx, en caso de ser procom, va vacio
+usuario flx='' || un usuario del erp de Flexxus
+contraseña flx='' || la contraseña de ese usuario
+version API(SELECT)='' || v2 o v5
+}
+
+TIENDANUBE ORIGEN{
+queda pendiente
+}
+
+ -- Tercer paso destino, opciones: MercadoLibre | TiendaNube | Woocommerce| Billowshop | AmazonES
+GENERAL{
+sellerPerfil='' || #CodigoPerfil vendedor | seller_username
+sellerUsuario='' || #CodigoUsuario vendedor | seller_id
+price_list='' || Lista de precio a usar
+type_stock='' || Tipo de stock, 1 remanente(disponible) | 0 real
+warehouse_list='' || listado de depositos a tomar (ejemplo; 001,002,003 etc)
+order_warehouse='' || deposito central del cual se toman los pedidos.
+operation_type='' || Tipo de operacion que utiliza la nota de pedido en Flexxus
+multiplazo=''; || Mulitplazo a utilizar para los clientes cargados (IMPORTANTE: en caso de querer factuarcion masiva, debe permitir anticipo)
+activity_type='000' || Tipo de actividad con la que se crean los clientes, 000 por defecto
+Use_variants_and_attributes='1' || siempre en 1 (NO SE MUESTRA)
+update_from='2023-01-01' || aca tiene que ir la fecha de hoy, formato YYYY:MM:DD HH:MM:SS (no se muestra)
+publicaWeb='1' || no se muestra, siempre va en 1
+talle='0' || 0 no usa, 1 si usa {
+equivalencia='0' || SI usa talle, aparece este parametro, y carga 1, sino se carga automaticamente en 0)
+	}
+}
+
+MERCADOLIBRE{
+meli_user_orders='' || No mostrar, crear vacio
+warehouse_full='' || Deposito del cual se debe tomar el stock para publicaciones FULL (IMPORTANTE NO DEBE SER UN DEPOSITO EN LA LISTA WAREHOUSE_LIST)
+itemFlete='' || aca va a el id del producto a utilizar como flete, IMPORTANTE, se completa en caso de querer facturar el envio de mercadoLibre, sino, dejar vacio.
+}
+
+TIENDANUBE{
+tienda_nube_actualiza_nombres='0' || No mostrar, cargar en 0 directamente
+use_variant_TN='1' || No mostrar, cargar en 1 
+status_order_sync='' || por defecto solo ingresa Completed, pero se puede agregar: Pending ...
+itemFlete='' || aca va a el id del producto a utilizar como flete
+}
+
+WOOCOMMERCE{
+use_variant_Woo='1' || No mostrar, cargar en 1
+status_order_sync='' || || por defecto solo ingresa Completed, pero se puede agregar: Pending ...
+itemFlete='' || aca va a el id del producto a utilizar como flete
+}
+
+Ultimo paso, Ingreso:
+(aca tendriamos que ver como dar los accesos al cliente, se cargarian las cuentas para ingresar)
+Nombre='' ||
+Apellido='' || 
+Email='' || aca, si el mail tiene un punto (ej: raul.ramirez@etc) pasar la info sin el punto (ej: raulramirez@etc)
+Contraseña='' || contraseña va encriptada en el back
+
+
+
+
+
+
+
